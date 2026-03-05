@@ -1,0 +1,48 @@
+# Graph Coloring (CSP) - Small Code
+
+nodes = input("Enter nodes (space separated): ").split()
+colors = input("Enter colors (space separated): ").split()
+
+edges = []
+m = int(input("Enter number of edges: "))
+for _ in range(m):
+    a, b = input("Enter edge (node1 node2): ").split()
+    edges.append((a, b))
+
+assign = {}
+
+def safe(node, color):
+    for x, y in edges:
+        if x == node and y in assign and assign[y] == color:
+            return False
+        if y == node and x in assign and assign[x] == color:
+            return False
+    return True
+
+def backtrack(i):
+    if i == len(nodes):
+        return True
+    node = nodes[i]
+    for c in colors:
+        if safe(node, c):
+            assign[node] = c
+            if backtrack(i + 1):
+                return True
+            del assign[node]
+    return False
+
+if backtrack(0):
+    print("Coloring:", assign)
+else:
+    print("No solution")
+
+OUTPUT:
+
+Enter nodes (space separated): a b c d
+Enter colors (space separated): red yellow black
+Enter number of edges: 4
+Enter edge (node1 node2): a b
+Enter edge (node1 node2): b c
+Enter edge (node1 node2): c d
+Enter edge (node1 node2): d a
+Coloring: {'a': 'red', 'b': 'yellow', 'c': 'red', 'd': 'yellow'}
