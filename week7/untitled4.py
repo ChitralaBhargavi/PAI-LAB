@@ -53,6 +53,7 @@ def forward_algorithm(states, observations, start_prob, transition_prob, emissio
             ft[current_state] = prob * emission_prob[current_state][observations[t]]
         forward.append(ft)
 
+
     # Step 3: Termination
     total_probability = sum(forward[-1][state] for state in states)
     return total_probability
@@ -60,3 +61,8 @@ def forward_algorithm(states, observations, start_prob, transition_prob, emissio
 # Run the algorithm
 result = forward_algorithm(states, obs_sequence, start_prob, transition_prob, emission_prob)
 print("Total Probability:", result)
+
+
+
+OUTPUT:
+Total Probability: 0.033612
